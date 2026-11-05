@@ -61,7 +61,11 @@ function Palin:Hold(Object:Instance)
     return true
 end
 
-function Palin:Add(Amount:number)
+function Palin:ASdd(Amount:number)
+    if not self.Expand then
+        warn("PALIN: Expanding Pools are disabled.")
+        return false
+    end
     for _i = 1, Amount do
         table.insert(self.Free, self.Type:Clone())
     end
@@ -69,12 +73,12 @@ function Palin:Add(Amount:number)
     return true
 end
 
-function Palin:Destroy(EndFn:boolean?)
+function Palin:Destroy(End:boolean?)
     for _, obj in self.Free do
         obj:Destroy()
     end
     for _, obj in self.Job do
-        if EndFn then
+        if End then
             self.EndFn(obj)
         end
         obj:Destroy()
