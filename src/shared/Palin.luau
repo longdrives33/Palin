@@ -26,6 +26,10 @@ end
 
 function Palin:Release(Amount:number?)
     local count = Amount or #self.Free
+    if Amount < 0 then
+        warn("PALIN: Amount is < 0.")
+        return false
+    end
 
     for _i = 1, count do
     local obj = table.remove(self.Free)
@@ -48,15 +52,23 @@ function Palin:Release(Amount:number?)
     return true
 end
 
-function Palin:Hold(Object:Instance)
+function Palin:Hold(Object:Instance?)
     local i = table.find(self.Job, Object)
-    if not i then 
+    if not i and Object then 
         warn(string.format("PALIN: Cannot hold object '%s' (%s) because it is not currently in use.", Object.Name, Object.ClassName))
         return false
     end
-    local cur_obj = table.remove(self.Job, i)
-    self.EndFn(cur_obj)
-    table.insert(self.Free, cur_obj)
+    if not Object then
+        for ii = 1, #self.Job do
+            local cur_obj = table.remove(self.Job, ii)
+            self.EndFn(cur_obj)
+            table.insert(self.Free, cur_obj)
+        end
+    else
+        local cur_obj = table.remove(self.Job, i)
+        self.EndFn(cur_obj)
+        table.insert(self.Free, cur_obj)
+    end
 
     return true
 end
