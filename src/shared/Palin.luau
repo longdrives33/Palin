@@ -51,7 +51,7 @@ end
 function Palin:Hold(Object:Instance)
     local i = table.find(self.Job, Object)
     if not i then 
-        warn(string.format(("PALIN: Cannot hold object '%s' (%s) because it is not currently in use."), Object.Name, Object.ClassName))
+        warn(string.format("PALIN: Cannot hold object '%s' (%s) because it is not currently in use.", Object.Name, Object.ClassName))
         return false
     end
     local cur_obj = table.remove(self.Job, i)
