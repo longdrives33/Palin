@@ -47,7 +47,7 @@ Manually extends the pool by instantiating and adding a specified amount of obje
 
 ---
 
-### `Palin:Destroy(EndFn?) -> boolean`
+### `Palin:Destroy(End?) -> boolean`
 Cleans up and safely deletes the entire pool instance along with all generated game objects.
 - `EndFn`: `boolean?` *(Optional)* — If `true`, it will forcefully run the `EndFn` callback for all objects currently active in the `Job` list before destroying them.
 - **Returns:** `true`.
