@@ -61,7 +61,7 @@ function Palin:Hold(Object:Instance)
     return true
 end
 
-function Palin:ASdd(Amount:number)
+function Palin:Add(Amount:number)
     if not self.Expand then
         warn("PALIN: Expanding Pools are disabled.")
         return false
