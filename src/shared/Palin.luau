@@ -59,8 +59,8 @@ function Palin:Hold(Object:Instance?)
         return false
     end
     if not Object then
-        for ii = 1, #self.Job do
-            local cur_obj = table.remove(self.Job, ii)
+        for _i = 1, #self.Job do
+            local cur_obj = table.remove(self.Job)
             self.EndFn(cur_obj)
             table.insert(self.Free, cur_obj)
         end
