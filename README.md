@@ -51,3 +51,23 @@ Manually extends the pool by instantiating and adding a specified amount of obje
 Cleans up and safely deletes the entire pool instance along with all generated game objects.
 - `EndFn`: `boolean?` *(Optional)* — If `true`, it will forcefully run the `EndFn` callback for all objects currently active in the `Job` list before destroying them.
 - **Returns:** `true`.
+
+- ## ⚙️ Internal State (Properties)
+
+When you create a pool instance via `Palin.Init()`, the returned object exposes several properties. While these can be read directly for custom logic (e.g., checking pool saturation), it is highly recommended to treat them as read-only to avoid breaking the pool's internal bookkeeping.
+
+| Property | Type | Description |
+| :--- | :--- | :--- |
+| `Free` | `{ Instance }` | An array (stack) containing all idle, pre-allocated objects currently waiting to be reused. |
+| `Job` | `{ Instance }` | An array tracking all currently active game objects that are out in the workspace. |
+| `Size` | `number` | The total capacity of the pool (the sum of all allocated objects, both free and job). |
+| `Type` | `Instance` | The original template/prefab instance that the pool uses as a blueprint for cloning. |
+| `Expand` | `boolean` | Toggles on/off autoexpanding the pool. |
+| `InitFn` | `()->()` | Initialization function for every instance in pool. |
+| `EndFn` | `()->()` | Ending function for every instance in pool. |
+
+### Pro tips:
+- Use `Palin:Hold()` to hold every job instance.
+- Use `Palin:Release()` to release every free instance.
+- Turning on and off `Expand` probably won't break the game and can be used correctly.
+
